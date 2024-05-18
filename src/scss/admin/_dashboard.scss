@@ -1,0 +1,93 @@
+@use "base/variables" as v;
+@use "base/mixins" as m;
+
+.dashboard {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	background-color: v.$gris-claro;
+
+	&__header {
+		background-color: v.$gris-oscuro;
+		padding: 2rem;
+	}
+
+	&__header-grid {
+		display: flex;
+		flex-direction: column;
+		@include m.tablet {
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+		}
+	}
+
+	&__logo {
+		@include m.logo;
+		@include m.texto-fluido(2rem, 3rem);
+	}
+
+	&__nav {
+	}
+
+	&__form {
+		display: flex;
+		justify-content: center;
+	}
+
+	&__submit--logout {
+		@include m.enlace;
+	}
+
+	&__grid {
+		display: flex;
+		flex: 1;
+	}
+
+	&__sidebar {
+		background-color: lighten($color: v.$gris-oscuro, $amount: 10);
+		width: 12rem;
+	}
+
+	&__menu {
+		padding: 1rem;
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	&__enlace {
+		color: lighten($color: v.$gris-oscuro, $amount: 40);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 2rem;
+		transition: 300ms background-color ease-in-out, 300ms color ease,
+			300ms border-radius ease;
+
+		&:hover {
+			background-color: lighten($color: v.$gris-oscuro, $amount: 20);
+			color: v.$blanco;
+			border-radius: 1rem;
+		}
+	}
+
+	&__icono {
+		font-size: 2rem;
+	}
+
+	&__menu-texto {
+		font-size: 1.1rem;
+		text-transform: uppercase;
+		font-weight: v.$bold;
+		margin-top: 0.5rem;
+	}
+
+	&__contenido {
+		padding: 1rem 1rem 3rem 1rem;
+		width: 100%;
+		@include m.tablet {
+			padding: 1rem 5rem 3rem 5rem;
+		}
+	}
+}

@@ -1,21 +1,24 @@
-@use 'variables' as v;
-@use 'mixins' as m;
+@use "variables" as v;
+@use "mixins" as m;
 
 html {
-    font-size: 62.5%;
-    box-sizing: border-box;
+	font-size: 62.5%;
+	box-sizing: border-box;
+	height: 100%;
 }
-*, *:before, *:after {
-    box-sizing: inherit;
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
 }
 body {
-    font-family: v.$fuente_principal;
-    font-size: 1.8rem;
+	font-family: v.$fuente_principal;
+	font-size: 1.8rem;
 }
 a {
-    text-decoration: none;
+	text-decoration: none;
 }
 img {
-    width: 100%;
-    height: auto;
+	width: 100%;
+	height: auto;
 }
