@@ -17,12 +17,21 @@
         // Verifica si la tecla presionada es la coma y si el valor del input no está vacío
         if (e.key === ',' && e.target.value.trim() !== "") {
             e.preventDefault(); // Previene el comportamiento por defecto de la tecla
-            // Agrega la etiqueta al array de etiquetas
-            tags = [...tags, e.target.value.trim()];
-            // Limpia el valor del input
-            e.target.value = '';
-            // Muestra las etiquetas actualizadas
-            mostrarTags();
+
+            const newTag = e.target.value.trim();
+
+            // Verifica si la etiqueta ya existe
+            if (!tags.includes(newTag)) {
+                // Agrega la etiqueta al array de etiquetas
+                tags = [...tags, newTag];
+                // Limpia el valor del input
+                e.target.value = '';
+                // Muestra las etiquetas actualizadas
+                mostrarTags();
+            } else {
+                // Opcional: informar al usuario que la etiqueta ya existe
+                e.target.value = '';
+            }
         }
     };
 

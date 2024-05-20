@@ -485,6 +485,9 @@ h3 {
   font-size: 1.4rem;
   font-weight: 700;
 }
+.formulario__listado > li:hover {
+  cursor: pointer;
+}
 
 .acciones {
   margin-top: 3rem;
@@ -886,7 +889,7 @@ h3 {
   }
 }
 .dashboard__contenedor, .dashboard__formulario {
-  box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
   background-color: #FFFFFF;
   padding: 2rem;
   border-radius: 1rem;
