@@ -49,7 +49,7 @@
     </div>
 
     <div id="tags" class="formulario__listado"></div>
-    <input type="hidden" name="tags" value="<?= $redes->tags ?? '' ?>">
+    <input type="hidden" name="tags" value="<?= $ponente->tags ?? '' ?>">
 </fieldset>
 
 

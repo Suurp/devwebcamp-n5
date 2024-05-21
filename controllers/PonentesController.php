@@ -99,7 +99,48 @@ class PonentesController
 
         $ponente->imagen_actual = $ponente->imagen;
 
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            if (!empty($_FILES['imagen']['tmp_name'])) {
 
+                $carpeta_imagenes = '../public/img/speakers';
+
+                // Crear la carpeta si no existe
+                if (!is_dir($carpeta_imagenes)) {
+                    mkdir($carpeta_imagenes, 0755, true);
+                }
+
+                $manager = new ImageManager(new Driver());
+                $imagen_png = $manager->read($_FILES['imagen']['tmp_name'])->cover(800, 800)->toPng();
+                $imagen_webp = $manager->read($_FILES['imagen']['tmp_name'])->cover(800, 800)->toWebp(60);
+                $imagen_avif = $manager->read($_FILES['imagen']['tmp_name'])->cover(800, 800)->toAvif(60);
+
+                $nombre_imagen = md5(uniqid(rand(), true));
+
+                $_POST['imagen'] = $nombre_imagen;
+            } else {
+                $_POST['imagen'] = $ponente->imagen_actual;
+            }
+
+            $_POST['redes'] = json_encode($_POST['redes'], JSON_UNESCAPED_SLASHES);
+            $ponente->sincronizar($_POST);
+
+            $alertas = $ponente->validar();
+
+            if (empty($alertas)) {
+                if (isset($nombre_imagen)) {
+                    // Guardar las imagenes
+                    $imagen_png->save($carpeta_imagenes . '/' . $nombre_imagen . ".png");
+                    $imagen_webp->save($carpeta_imagenes . '/' . $nombre_imagen . ".webp");
+                    $imagen_avif->save($carpeta_imagenes . '/' . $nombre_imagen . ".avif");
+                }
+
+                $resultado = $ponente->guardar();
+
+                if ($resultado) {
+                    header('Location: /admin/ponentes');
+                }
+            }
+        }
 
         $router->render('/admin/ponentes/editar', [
             'titulo' => 'Actualizar Ponente',
