@@ -149,4 +149,20 @@ class PonentesController
             'redes' => json_decode($ponente->redes)
         ]);
     }
+
+    public static function eliminar()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            $id = $_POST['id'];
+            $ponente = Ponente::find($id);
+            if (!isset($ponente)) {
+                header('Location: /admin/ponentes');
+            }
+
+            $resultado = $ponente->eliminar();
+            if ($resultado) {
+                header('Location: /admin/ponentes');
+            }
+        }
+    }
 }
