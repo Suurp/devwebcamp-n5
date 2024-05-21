@@ -67,6 +67,12 @@
         mostrarTags();
     };
 
+    //Recuperar tags
+    if(tagsInputHidden.value !== "") {
+        tags = tagsInputHidden.value.split(",");
+        mostrarTags();
+    }
+
     // Añade el evento de escucha al input para detectar la tecla presionada
     tagsInput.addEventListener("keypress", guardarTag);
 })();
