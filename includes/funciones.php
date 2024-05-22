@@ -43,7 +43,29 @@ function is_auth(): void
     }
 
     // Verificar si el usuario está autenticado
-    if (empty($_SESSION['nombre']) && empty($_SESSION['admin'])) {
+    if (empty($_SESSION)) {
+        header('Location: /');
+        exit();
+    }
+}
+
+function is_admin(): void
+{
+    // Iniciar la sesión si aún no ha sido iniciada
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    // Regenerar el ID de sesión para prevenir ataques de secuestro de sesión
+    if (!isset($_SESSION['CREATED'])) {
+        $_SESSION['CREATED'] = time();
+    } elseif (time() - $_SESSION['CREATED'] > 1800) { // 30 minutos
+        session_regenerate_id(true);
+        $_SESSION['CREATED'] = time();
+    }
+
+    // Verificar si el usuario está autenticado
+    if (empty($_SESSION['admin'])) {
         header('Location: /');
         exit();
     }

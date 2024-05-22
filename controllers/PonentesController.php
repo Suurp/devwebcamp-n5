@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Classes\Paginacion;
 use Model\Ponente;
 use MVC\Router;
 use Intervention\Image\ImageManager;
@@ -12,20 +13,39 @@ class PonentesController
 
     public static function index(Router $router)
     {
-        is_auth();
+        is_admin();
 
-        $ponentes = Ponente::all();
+        $pagina_actual = $_GET['page'];
+        $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
+
+        if (!$pagina_actual || $pagina_actual < 1) {
+            header('Location: /admin/ponentes?page=1');
+            exit();
+        }
+
+        $registros_por_pagina = 10;
+        $total = Ponente::total();
+        $paginacion = new Paginacion($pagina_actual, $registros_por_pagina, $total);
+
+        if ($paginacion->total_paginas() < $pagina_actual) {
+            header('Location: /admin/ponentes?page=1');
+            exit();
+        }
+
+
+        $ponentes = Ponente::paginar($registros_por_pagina, $paginacion->offset());
 
         $router->render('/admin/ponentes/index', [
             'titulo' => 'Ponentes / Conferencistas',
-            'ponentes' => $ponentes
+            'ponentes' => $ponentes,
+            'paginacion' => $paginacion->paginacion()
         ]);
     }
 
     public static function crear(Router $router)
     {
 
-        is_auth();
+        is_admin();
 
         $alertas = [];
         $ponente = new Ponente;
@@ -87,7 +107,7 @@ class PonentesController
     public static function editar(Router $router)
     {
 
-        is_auth();
+        is_admin();
 
         $alertas = [];
         // Validar ID
@@ -159,6 +179,8 @@ class PonentesController
 
     public static function eliminar()
     {
+        is_admin();
+
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             $id = $_POST['id'];
             $ponente = Ponente::find($id);

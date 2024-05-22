@@ -9,6 +9,7 @@
 
 <div class="dashboard__contenedor">
     <?php if (!empty($ponentes)) { ?>
+
         <table class="table">
             <thead class="table__thead">
                 <tr>
@@ -49,3 +50,6 @@
         <p class="text-center"> No hay ponentes aún</p>
     <?php } ?>
 </div>
+
+<?= $paginacion
+?>
