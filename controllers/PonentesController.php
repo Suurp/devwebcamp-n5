@@ -12,8 +12,9 @@ class PonentesController
 
     public static function index(Router $router)
     {
-        $ponentes = Ponente::all();
+        is_auth();
 
+        $ponentes = Ponente::all();
 
         $router->render('/admin/ponentes/index', [
             'titulo' => 'Ponentes / Conferencistas',
@@ -23,6 +24,9 @@ class PonentesController
 
     public static function crear(Router $router)
     {
+
+        is_auth();
+
         $alertas = [];
         $ponente = new Ponente;
 
@@ -82,6 +86,9 @@ class PonentesController
 
     public static function editar(Router $router)
     {
+
+        is_auth();
+
         $alertas = [];
         // Validar ID
         $id = $_GET['id'];
@@ -155,13 +162,16 @@ class PonentesController
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             $id = $_POST['id'];
             $ponente = Ponente::find($id);
+
             if (!isset($ponente)) {
                 header('Location: /admin/ponentes');
+                exit();
             }
 
             $resultado = $ponente->eliminar();
             if ($resultado) {
                 header('Location: /admin/ponentes');
+                exit();
             }
         }
     }
