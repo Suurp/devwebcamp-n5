@@ -446,6 +446,10 @@ h3 {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
+.formulario__radio {
+  display: flex;
+  gap: 2rem;
+}
 .formulario__texto {
   margin-top: 3rem;
 }
