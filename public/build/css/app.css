@@ -407,16 +407,16 @@ h3 {
   font-size: 1.8rem;
   color: rgba(26, 27, 21, 0.8);
 }
-.formulario__input, .formulario__input--sociales {
+.formulario__input, .formulario__input--sociales, .formulario__select--sociales, .formulario__select {
   padding: 1rem;
   border: 1px solid #394250;
   border-radius: 0.5rem;
 }
-.formulario__input--file {
+.formulario__input--file, .formulario__select--file {
   border: none;
   padding: 0 0 1rem 0;
 }
-.formulario__input--file::file-selector-button {
+.formulario__input--file::file-selector-button, .formulario__select--file::file-selector-button {
   background-color: #007df4;
   padding: 1.5rem 4rem;
   color: #FFFFFF;
@@ -432,16 +432,16 @@ h3 {
   margin-right: 2rem;
   width: 40%;
 }
-.formulario__input--file::file-selector-button:hover {
+.formulario__input--file::file-selector-button:hover, .formulario__select--file::file-selector-button:hover {
   background-color: #0063c1;
   cursor: pointer;
 }
 @media (min-width: 768px) {
-  .formulario__input--file::file-selector-button {
+  .formulario__input--file::file-selector-button, .formulario__select--file::file-selector-button {
     width: auto;
   }
 }
-.formulario__input--sociales {
+.formulario__input--sociales, .formulario__select--sociales {
   flex: 1;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;

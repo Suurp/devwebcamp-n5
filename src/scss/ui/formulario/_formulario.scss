@@ -48,7 +48,8 @@
 		font-size: 1.8rem;
 		color: rgba(v.$negro, 0.8);
 	}
-	&__input {
+	&__input,
+	&__select {
 		padding: 1rem;
 		border: 1px solid darken(v.$gris, 20);
 		border-radius: 0.5rem;
