@@ -2,6 +2,9 @@
 
 namespace Model;
 
+use mysqli;
+use Exception;
+
 class ActiveRecord
 {
 
@@ -44,6 +47,10 @@ class ActiveRecord
         // Consultar la base de datos
         $resultado = self::$db->query($query);
 
+        if (!$resultado) {
+            throw new Exception("Error en la consulta: " . self::$db->error);
+        }
+
         // Iterar los resultados
         $array = [];
         while ($registro = $resultado->fetch_assoc()) {
@@ -57,7 +64,9 @@ class ActiveRecord
         return $array;
     }
 
-    // Crea el objeto en memoria que es igual al de la BD
+    /**
+     * Crea el objeto en memoria que es igual al de la BD
+     */
     protected static function crearObjeto($registro)
     {
         $objeto = new static;
@@ -87,7 +96,7 @@ class ActiveRecord
         $atributos = $this->atributos();
         $sanitizado = [];
         foreach ($atributos as $key => $value) {
-            $sanitizado[$key] = self::$db->escape_string($value);
+            $sanitizado[$key] = self::$db->real_escape_string($value);
         }
         return $sanitizado;
     }
@@ -204,7 +213,7 @@ class ActiveRecord
         // Consulta SQL
         $query = "UPDATE " . static::$tabla . " SET ";
         $query .=  join(', ', $valores);
-        $query .= " WHERE id = '" . self::$db->escape_string($this->id) . "' ";
+        $query .= " WHERE id = '" . self::$db->real_escape_string($this->id) . "' ";
         $query .= " LIMIT 1 ";
 
         // Actualizar BD
@@ -215,7 +224,7 @@ class ActiveRecord
     // Eliminar un Registro por su ID
     public function eliminar()
     {
-        $query = "DELETE FROM "  . static::$tabla . " WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1";
+        $query = "DELETE FROM "  . static::$tabla . " WHERE id = " . self::$db->real_escape_string($this->id) . " LIMIT 1";
         $resultado = self::$db->query($query);
         return $resultado;
     }
