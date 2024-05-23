@@ -22,7 +22,7 @@
     </div>
 
     <div class="formulario__campo">
-        <label for="categoria" class="formulario__label">Selecciona el día</label>
+        <label for="dia" class="formulario__label">Selecciona el día</label>
 
         <div class="formulario__radio">
             <?php foreach ($dias as $dia) { ?>
@@ -33,6 +33,17 @@
             <?php } ?>
         </div>
     </div>
+
+
+    <div class="formulario__campo" id="horas">
+        <label class="formulario__label">Seleccionar Hora</label>
+        <ul class="horas">
+            <?php foreach ($horas as $hora) { ?>
+                <li class="horas__hora"><?= $hora->hora ?></li>
+            <?php } ?>
+        </ul>
+    </div>
+
 
 
 
