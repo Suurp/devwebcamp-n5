@@ -13,6 +13,7 @@ class EventosController
 
     public static function index(Router $router)
     {
+        is_admin();
 
         $router->render('/admin/eventos/index', [
             'titulo' => 'Conferencias y Workshop'
@@ -21,6 +22,8 @@ class EventosController
 
     public static function crear(Router $router)
     {
+        is_admin();
+
         $alertas = [];
 
         $categorias = Categoria::all('ASC');

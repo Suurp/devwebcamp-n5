@@ -49,7 +49,8 @@
 		color: rgba(v.$negro, 0.8);
 	}
 	&__input,
-	&__select {
+	&__select,
+	&__texarea {
 		padding: 1rem;
 		border: 1px solid darken(v.$gris, 20);
 		border-radius: 0.5rem;
@@ -103,5 +104,9 @@
 
 	&__listado {
 		@include m.tags;
+	}
+
+	&__textarea {
+		resize: vertical;
 	}
 }
