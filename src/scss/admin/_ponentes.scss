@@ -22,4 +22,15 @@
 			color: v.$blanco;
 		}
 	}
+
+	&__no-resultados {
+		@extend .listado-ponentes__ponente;
+		border: 1px solid v.$amarillo;
+		background-color: v.$amarillo;
+		color: v.$negro;
+
+		&:hover {
+			cursor: not-allowed;
+		}
+	}
 }

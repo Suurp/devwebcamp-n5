@@ -44,7 +44,7 @@
 				ponenteHTML.addEventListener("click", seleccionarPonente);
 				listadoPonentes.appendChild(ponenteHTML);
 			});
-		} else if (ponentesInput.value.length >= 3) {
+		} else if (ponentesInput.value.length > 3) {
 			// Mostrar mensaje de "no resultados" si no hay coincidencias
 			const noResultados = document.createElement("P");
 			noResultados.classList.add("listado-ponentes__no-resultados");
@@ -109,6 +109,17 @@
 		}
 	};
 
+	const obtenerPonente = async (id) => {
+		const url = `/api/ponente?id=${id}`;
+		try {
+			const respuesta = await fetch(url);
+			const resultado = await respuesta.json();
+			return resultado;
+		} catch (error) {
+			console.error("Error al obtener los ponentes:", error);
+		}
+	};
+
 	// Inicializa la funcionalidad si el input de ponentes existe
 	if (ponentesInput) {
 		let ponentes = [];
@@ -116,5 +127,23 @@
 
 		obtenerPonentes();
 		ponentesInput.addEventListener("input", buscarPonentes);
+
+		if (ponenteHidden.value) {
+			(async (e) => {
+				const listadoPonentes =
+					document.querySelector("#listado-ponentes");
+				const ponente = await obtenerPonente(ponenteHidden.value);
+				const { nombre, apellido } = ponente;
+
+				const ponenteDOM = document.createElement("LI");
+				ponenteDOM.classList.add(
+					"listado-ponentes__ponente",
+					"listado-ponentes__ponente--seleccionado"
+				);
+				ponenteDOM.textContent = `${nombre} ${apellido}`;
+				listadoPonentes.appendChild(ponenteDOM);
+				ponentesInput.value = `${nombre} ${apellido}`;
+			})();
+		}
 	}
 })();

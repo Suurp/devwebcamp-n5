@@ -2,7 +2,6 @@
 
 namespace Model;
 
-use mysqli;
 use Exception;
 
 class ActiveRecord

@@ -51,6 +51,7 @@ class PonentesController
         $ponente = new Ponente;
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            is_admin();
 
             // Leer imagen
             if (!empty($_FILES['imagen']['tmp_name'])) {
@@ -127,6 +128,7 @@ class PonentesController
         $ponente->imagen_actual = $ponente->imagen;
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            is_admin();
             if (!empty($_FILES['imagen']['tmp_name'])) {
 
                 $carpeta_imagenes = '../public/img/speakers';
@@ -182,6 +184,7 @@ class PonentesController
         is_admin();
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            is_admin();
             $id = $_POST['id'];
             $ponente = Ponente::find($id);
 

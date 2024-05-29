@@ -28,12 +28,12 @@
             <?php foreach ($dias as $dia) { ?>
                 <div>
                     <label for="<?= strtolower($dia->nombre) ?>"><?= $dia->nombre ?></label>
-                    <input type="radio" id="<?= strtolower($dia->nombre) ?>" name="dia" value="<?= $dia->id ?>">
+                    <input type="radio" id="<?= strtolower($dia->nombre) ?>" name="dia" value="<?= $dia->id ?>" <?= ($evento->dia_id === $dia->id) ? 'checked' : ''; ?>>
                 </div>
             <?php } ?>
         </div>
 
-        <input type="hidden" name="dia_id" value="">
+        <input type="hidden" name="dia_id" value="<?= $evento->dia_id ?>">
     </div>
 
 
@@ -44,7 +44,7 @@
                 <li data-hora-id="<?= $hora->id ?>" class="horas__hora horas__hora--deshabilitada"><?= $hora->hora ?></li>
             <?php } ?>
         </ul>
-        <input type="hidden" name="hora_id" value="">
+        <input type="hidden" name="hora_id" value="<?= $evento->hora_id ?>">
     </div>
 </fieldset>
 
@@ -57,7 +57,7 @@
 
         <ul id="listado-ponentes" class="listado-ponentes"></ul>
 
-        <input type="hidden" name="ponente_id" value="">
+        <input type="hidden" name="ponente_id" value="<?= $evento->ponente_id ?>">
     </div>
 
     <div class="formulario__campo">
