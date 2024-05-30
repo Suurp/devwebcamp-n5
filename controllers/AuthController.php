@@ -6,10 +6,8 @@ use Classes\Email;
 use Model\Usuario;
 use MVC\Router;
 
-class AuthController
-{
-    public static function login(Router $router)
-    {
+class AuthController {
+    public static function login(Router $router) {
 
         $alertas = [];
 
@@ -30,13 +28,13 @@ class AuthController
 
                         // Iniciar la sesión
                         session_start();
-                        $_SESSION['id'] = $usuario->id;
-                        $_SESSION['nombre'] = $usuario->nombre;
+                        $_SESSION['id']       = $usuario->id;
+                        $_SESSION['nombre']   = $usuario->nombre;
                         $_SESSION['apellido'] = $usuario->apellido;
-                        $_SESSION['email'] = $usuario->email;
-                        $_SESSION['admin'] = $usuario->admin ?? null;
+                        $_SESSION['email']    = $usuario->email;
+                        $_SESSION['admin']    = $usuario->admin ?? null;
 
-                        // Redireccionar 
+                        // Redireccionar
                         if ($usuario->admin) {
                             header('Location: /admin/dashboard');
                         } else {
@@ -51,15 +49,14 @@ class AuthController
 
         $alertas = Usuario::getAlertas();
 
-        // Render a la vista 
+        // Render a la vista
         $router->render('auth/login', [
-            'titulo' => 'Iniciar Sesión',
-            'alertas' => $alertas
+            'titulo'  => 'Iniciar Sesión',
+            'alertas' => $alertas,
         ]);
     }
 
-    public static function logout()
-    {
+    public static function logout() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             session_start();
             $_SESSION = [];
@@ -67,8 +64,7 @@ class AuthController
         }
     }
 
-    public static function registro(Router $router)
-    {
+    public static function registro(Router $router) {
         $alertas = [];
         $usuario = new Usuario;
 
@@ -95,12 +91,11 @@ class AuthController
                     $usuario->crearToken();
 
                     // Crear un nuevo usuario
-                    $resultado =  $usuario->guardar();
+                    $resultado = $usuario->guardar();
 
                     // Enviar email
                     $email = new Email($usuario->email, $usuario->nombre, $usuario->token);
                     $email->enviarConfirmacion();
-
 
                     if ($resultado) {
                         header('Location: /mensaje');
@@ -111,14 +106,13 @@ class AuthController
 
         // Render a la vista
         $router->render('auth/registro', [
-            'titulo' => 'Crea tu cuenta en DevWebcamp',
+            'titulo'  => 'Crea tu cuenta en DevWebcamp',
             'usuario' => $usuario,
-            'alertas' => $alertas
+            'alertas' => $alertas,
         ]);
     }
 
-    public static function olvide(Router $router)
-    {
+    public static function olvide(Router $router) {
         $alertas = [];
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -142,7 +136,6 @@ class AuthController
                     $email = new Email($usuario->email, $usuario->nombre, $usuario->token);
                     $email->enviarInstrucciones();
 
-
                     // Imprimir la alerta
                     // Usuario::setAlerta('exito', 'Hemos enviado las instrucciones a tu email');
 
@@ -158,19 +151,20 @@ class AuthController
 
         // Muestra la vista
         $router->render('auth/olvide', [
-            'titulo' => 'Olvide mi Password',
-            'alertas' => $alertas
+            'titulo'  => 'Olvide mi Password',
+            'alertas' => $alertas,
         ]);
     }
 
-    public static function reestablecer(Router $router)
-    {
+    public static function reestablecer(Router $router) {
 
         $token = s($_GET['token']);
 
         $token_valido = true;
 
-        if (!$token) header('Location: /');
+        if (!$token) {
+            header('Location: /');
+        }
 
         // Identificar el usuario con este token
         $usuario = Usuario::where('token', $token);
@@ -179,7 +173,6 @@ class AuthController
             Usuario::setAlerta('error', 'Token No Válido, intenta de nuevo');
             $token_valido = false;
         }
-
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -210,26 +203,26 @@ class AuthController
 
         // Muestra la vista
         $router->render('auth/reestablecer', [
-            'titulo' => 'Reestablecer Password',
-            'alertas' => $alertas,
-            'token_valido' => $token_valido
+            'titulo'       => 'Reestablecer Password',
+            'alertas'      => $alertas,
+            'token_valido' => $token_valido,
         ]);
     }
 
-    public static function mensaje(Router $router)
-    {
+    public static function mensaje(Router $router) {
 
         $router->render('auth/mensaje', [
-            'titulo' => 'Cuenta Creada Exitosamente'
+            'titulo' => 'Cuenta Creada Exitosamente',
         ]);
     }
 
-    public static function confirmar(Router $router)
-    {
+    public static function confirmar(Router $router) {
 
         $token = s($_GET['token']);
 
-        if (!$token) header('Location: /');
+        if (!$token) {
+            header('Location: /');
+        }
 
         // Encontrar al usuario con este token
         $usuario = Usuario::where('token', $token);
@@ -240,7 +233,7 @@ class AuthController
         } else {
             // Confirmar la cuenta
             $usuario->confirmado = 1;
-            $usuario->token = '';
+            $usuario->token      = '';
             unset($usuario->password2);
 
             // Guardar en la BD
@@ -249,11 +242,9 @@ class AuthController
             Usuario::setAlerta('exito', 'Cuenta Comprobada Correctamente');
         }
 
-
-
         $router->render('auth/confirmar', [
-            'titulo' => 'Confirma tu cuenta DevWebcamp',
-            'alertas' => Usuario::getAlertas()
+            'titulo'  => 'Confirma tu cuenta DevWebcamp',
+            'alertas' => Usuario::getAlertas(),
         ]);
     }
 }

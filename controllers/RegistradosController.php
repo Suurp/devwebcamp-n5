@@ -4,14 +4,12 @@ namespace Controllers;
 
 use MVC\Router;
 
-class RegistradosController
-{
+class RegistradosController {
 
-    public static function index(Router $router)
-    {
+    public static function index(Router $router) {
 
         $router->render('/admin/registrados/index', [
-            'titulo' => 'Usuarios Registrados'
+            'titulo' => 'Usuarios Registrados',
         ]);
     }
 }

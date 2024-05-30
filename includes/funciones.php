@@ -1,20 +1,17 @@
 <?php
 
-function debuguear($variable): string
-{
+function debuguear($variable): string {
     echo "<pre>";
     var_dump($variable);
     echo "</pre>";
     exit;
 }
-function s($html): string
-{
+function s($html): string {
     $s = htmlspecialchars($html);
     return $s;
 }
 
-function pagina_actual(string $path): bool
-{
+function paginaActual(string $path): bool {
     // Verificar que $path no esté vacío
     if (empty($path)) {
         return false;
@@ -27,8 +24,7 @@ function pagina_actual(string $path): bool
     return str_contains($currentPath, $path);
 }
 
-function is_auth(): void
-{
+function isAuth(): void {
     // Iniciar la sesión si aún no ha sido iniciada
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
@@ -49,8 +45,7 @@ function is_auth(): void
     }
 }
 
-function is_admin(): void
-{
+function isAdmin(): void {
     // Iniciar la sesión si aún no ha sido iniciada
     if (session_status() === PHP_SESSION_NONE) {
         session_start();

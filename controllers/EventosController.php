@@ -10,11 +10,9 @@ use Model\Hora;
 use Model\Ponente;
 use MVC\Router;
 
-class EventosController
-{
+class EventosController {
 
-    public static function index(Router $router)
-    {
+    public static function index(Router $router) {
         is_admin();
 
         $pagina_actual = $_GET['page'];
@@ -26,34 +24,33 @@ class EventosController
         }
 
         $por_pagina = 10;
-        $total = Evento::total();
+        $total      = Evento::total();
         $paginacion = new Paginacion($pagina_actual, $por_pagina, $total);
 
         $eventos = Evento::paginar($por_pagina, $paginacion->offset());
 
         foreach ($eventos as $evento) {
             $evento->categoria = Categoria::find($evento->categoria_id);
-            $evento->dia = Dia::find($evento->dia_id);
-            $evento->hora = Hora::find($evento->hora_id);
-            $evento->ponente = Ponente::find($evento->ponente_id);
+            $evento->dia       = Dia::find($evento->dia_id);
+            $evento->hora      = Hora::find($evento->hora_id);
+            $evento->ponente   = Ponente::find($evento->ponente_id);
         }
 
         $router->render('/admin/eventos/index', [
-            'titulo' => 'Conferencias y Workshop',
-            'eventos' => $eventos,
-            'paginacion' => $paginacion->paginacion()
+            'titulo'     => 'Conferencias y Workshop',
+            'eventos'    => $eventos,
+            'paginacion' => $paginacion->paginacion(),
         ]);
     }
 
-    public static function crear(Router $router)
-    {
+    public static function crear(Router $router) {
         is_admin();
         $alertas = [];
 
         $categorias = Categoria::all('ASC');
-        $dias = Dia::all('ASC');
-        $horas = Hora::all('ASC');
-        $evento = new Evento;
+        $dias       = Dia::all('ASC');
+        $horas      = Hora::all('ASC');
+        $evento     = new Evento;
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             is_admin();
@@ -70,19 +67,17 @@ class EventosController
             }
         }
 
-
         $router->render('/admin/eventos/crear', [
-            'titulo' => 'Registrar Evento',
-            'alertas' => $alertas,
+            'titulo'     => 'Registrar Evento',
+            'alertas'    => $alertas,
             'categorias' => $categorias,
-            'dias' => $dias,
-            'horas' => $horas,
-            'evento' => $evento
+            'dias'       => $dias,
+            'horas'      => $horas,
+            'evento'     => $evento,
         ]);
     }
 
-    public static function editar(Router $router)
-    {
+    public static function editar(Router $router) {
         is_admin();
         $alertas = [];
 
@@ -95,8 +90,8 @@ class EventosController
         }
 
         $categorias = Categoria::all('ASC');
-        $dias = Dia::all('ASC');
-        $horas = Hora::all('ASC');
+        $dias       = Dia::all('ASC');
+        $horas      = Hora::all('ASC');
 
         $evento = Evento::find($id);
 
@@ -120,24 +115,22 @@ class EventosController
             }
         }
 
-
         $router->render('/admin/eventos/editar', [
-            'titulo' => 'Editar Evento',
-            'alertas' => $alertas,
+            'titulo'     => 'Editar Evento',
+            'alertas'    => $alertas,
             'categorias' => $categorias,
-            'dias' => $dias,
-            'horas' => $horas,
-            'evento' => $evento
+            'dias'       => $dias,
+            'horas'      => $horas,
+            'evento'     => $evento,
         ]);
     }
 
-    public static function eliminar()
-    {
+    public static function eliminar() {
         is_admin();
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             is_admin();
-            $id = $_POST['id'];
+            $id     = $_POST['id'];
             $evento = Evento::find($id);
 
             if (!isset($evento)) {

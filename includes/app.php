@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use Dotenv\Dotenv;
 use Model\ActiveRecord;

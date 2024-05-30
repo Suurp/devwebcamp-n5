@@ -2,9 +2,8 @@
 
 namespace Model;
 
-class Usuario extends ActiveRecord
-{
-    protected static $tabla = 'usuarios';
+class Usuario extends ActiveRecord {
+    protected static $tabla      = 'usuarios';
     protected static $columnasDB = ['id', 'nombre', 'apellido', 'email', 'password', 'confirmado', 'token', 'admin'];
 
     public $id;
@@ -20,23 +19,20 @@ class Usuario extends ActiveRecord
     public $password_actual;
     public $password_nuevo;
 
-
-    public function __construct($args = [])
-    {
-        $this->id = $args['id'] ?? null;
-        $this->nombre = $args['nombre'] ?? '';
-        $this->apellido = $args['apellido'] ?? '';
-        $this->email = $args['email'] ?? '';
-        $this->password = $args['password'] ?? '';
-        $this->password2 = $args['password2'] ?? '';
+    public function __construct($args = []) {
+        $this->id         = $args['id'] ?? null;
+        $this->nombre     = $args['nombre'] ?? '';
+        $this->apellido   = $args['apellido'] ?? '';
+        $this->email      = $args['email'] ?? '';
+        $this->password   = $args['password'] ?? '';
+        $this->password2  = $args['password2'] ?? '';
         $this->confirmado = $args['confirmado'] ?? 0;
-        $this->token = $args['token'] ?? '';
-        $this->admin = $args['admin'] ?? 0;
+        $this->token      = $args['token'] ?? '';
+        $this->admin      = $args['admin'] ?? 0;
     }
 
     // Validar el Login de Usuarios
-    public function validarLogin()
-    {
+    public function validarLogin() {
         if (!$this->email) {
             self::$alertas['error'][] = 'El Email del Usuario es Obligatorio';
         }
@@ -50,8 +46,7 @@ class Usuario extends ActiveRecord
     }
 
     // Validación para cuentas nuevas
-    public function validar_cuenta()
-    {
+    public function validarCuenta() {
         if (!$this->nombre) {
             self::$alertas['error'][] = 'El Nombre es Obligatorio';
         }
@@ -74,8 +69,7 @@ class Usuario extends ActiveRecord
     }
 
     // Valida un email
-    public function validarEmail()
-    {
+    public function validarEmail() {
         if (!$this->email) {
             self::$alertas['error'][] = 'El Email es Obligatorio';
         }
@@ -85,9 +79,8 @@ class Usuario extends ActiveRecord
         return self::$alertas;
     }
 
-    // Valida el Password 
-    public function validarPassword()
-    {
+    // Valida el Password
+    public function validarPassword() {
         if (!$this->password) {
             self::$alertas['error'][] = 'El Password no puede ir vacio';
         }
@@ -97,8 +90,7 @@ class Usuario extends ActiveRecord
         return self::$alertas;
     }
 
-    public function nuevo_password(): array
-    {
+    public function nuevoPassword(): array {
         if (!$this->password_actual) {
             self::$alertas['error'][] = 'El Password Actual no puede ir vacio';
         }
@@ -112,20 +104,17 @@ class Usuario extends ActiveRecord
     }
 
     // Comprobar el password
-    public function comprobar_password(): bool
-    {
+    public function comprobarPassword(): bool {
         return password_verify($this->password_actual, $this->password);
     }
 
     // Hashea el password
-    public function hashPassword(): void
-    {
+    public function hashPassword(): void {
         $this->password = password_hash($this->password, PASSWORD_BCRYPT);
     }
 
     // Generar un Token
-    public function crearToken(): void
-    {
+    public function crearToken(): void {
         $this->token = uniqid();
     }
 }

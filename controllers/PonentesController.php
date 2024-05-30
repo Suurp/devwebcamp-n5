@@ -3,16 +3,13 @@
 namespace Controllers;
 
 use Classes\Paginacion;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 use Model\Ponente;
 use MVC\Router;
-use Intervention\Image\ImageManager;
-use Intervention\Image\Drivers\Gd\Driver;
 
-class PonentesController
-{
-
-    public static function index(Router $router)
-    {
+class PonentesController {
+    public static function index(Router $router) {
         is_admin();
 
         $pagina_actual = $_GET['page'];
@@ -24,26 +21,24 @@ class PonentesController
         }
 
         $registros_por_pagina = 5;
-        $total = Ponente::total();
-        $paginacion = new Paginacion($pagina_actual, $registros_por_pagina, $total);
+        $total                = Ponente::total();
+        $paginacion           = new Paginacion($pagina_actual, $registros_por_pagina, $total);
 
         if ($paginacion->total_paginas() < $pagina_actual) {
             header('Location: /admin/ponentes?page=1');
             exit();
         }
 
-
         $ponentes = Ponente::paginar($registros_por_pagina, $paginacion->offset());
 
         $router->render('/admin/ponentes/index', [
-            'titulo' => 'Ponentes / Conferencistas',
-            'ponentes' => $ponentes,
-            'paginacion' => $paginacion->paginacion()
+            'titulo'     => 'Ponentes / Conferencistas',
+            'ponentes'   => $ponentes,
+            'paginacion' => $paginacion->paginacion(),
         ]);
     }
 
-    public static function crear(Router $router)
-    {
+    public static function crear(Router $router) {
 
         is_admin();
 
@@ -63,8 +58,8 @@ class PonentesController
                     mkdir($carpeta_imagenes, 0755, true);
                 }
 
-                $manager = new ImageManager(new Driver());
-                $imagen_png = $manager->read($_FILES['imagen']['tmp_name'])->cover(800, 800)->toPng();
+                $manager     = new ImageManager(new Driver());
+                $imagen_png  = $manager->read($_FILES['imagen']['tmp_name'])->cover(800, 800)->toPng();
                 $imagen_webp = $manager->read($_FILES['imagen']['tmp_name'])->cover(800, 800)->toWebp(60);
                 $imagen_avif = $manager->read($_FILES['imagen']['tmp_name'])->cover(800, 800)->toAvif(60);
 
@@ -77,7 +72,6 @@ class PonentesController
 
             // validar
             $alertas = $ponente->validar();
-
 
             // Guardar el registro
             if (empty($alertas)) {
@@ -97,16 +91,14 @@ class PonentesController
         }
 
         $router->render('admin/ponentes/crear', [
-            'titulo' => 'Registrar Ponente',
+            'titulo'  => 'Registrar Ponente',
             'alertas' => $alertas,
             'ponente' => $ponente,
-            'redes' => json_decode($ponente->redes)
+            'redes'   => json_decode($ponente->redes),
         ]);
     }
 
-
-    public static function editar(Router $router)
-    {
+    public static function editar(Router $router) {
 
         is_admin();
 
@@ -138,8 +130,8 @@ class PonentesController
                     mkdir($carpeta_imagenes, 0755, true);
                 }
 
-                $manager = new ImageManager(new Driver());
-                $imagen_png = $manager->read($_FILES['imagen']['tmp_name'])->cover(800, 800)->toPng();
+                $manager     = new ImageManager(new Driver());
+                $imagen_png  = $manager->read($_FILES['imagen']['tmp_name'])->cover(800, 800)->toPng();
                 $imagen_webp = $manager->read($_FILES['imagen']['tmp_name'])->cover(800, 800)->toWebp(60);
                 $imagen_avif = $manager->read($_FILES['imagen']['tmp_name'])->cover(800, 800)->toAvif(60);
 
@@ -172,20 +164,19 @@ class PonentesController
         }
 
         $router->render('/admin/ponentes/editar', [
-            'titulo' => 'Actualizar Ponente',
+            'titulo'  => 'Actualizar Ponente',
             'ponente' => $ponente,
             'alertas' => $alertas,
-            'redes' => json_decode($ponente->redes)
+            'redes'   => json_decode($ponente->redes),
         ]);
     }
 
-    public static function eliminar()
-    {
+    public static function eliminar() {
         is_admin();
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             is_admin();
-            $id = $_POST['id'];
+            $id      = $_POST['id'];
             $ponente = Ponente::find($id);
 
             if (!isset($ponente)) {

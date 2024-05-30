@@ -1,1 +1,1 @@
-<h2 class="dashboard__heading"><?= $titulo ?></h2>
+<h2 class="dashboard__heading"><?=$titulo;?></h2>

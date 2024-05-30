@@ -3,22 +3,22 @@
 
     <div class="formulario__campo">
         <label for="nombre" class="formulario__label">Nombre:</label>
-        <input type="text" class="formulario__input" id="nombre" name="nombre" placeholder="Nombre Ponente" value="<?= $ponente->nombre ?? '' ?>">
+        <input type="text" class="formulario__input" id="nombre" name="nombre" placeholder="Nombre Ponente" value="<?=$ponente->nombre ?? '';?>">
     </div>
 
     <div class="formulario__campo">
         <label for="apellido" class="formulario__label">Apellido:</label>
-        <input type="text" class="formulario__input" id="apellido" name="apellido" placeholder="Apellido Ponente" value="<?= $ponente->apellido ?? '' ?>">
+        <input type="text" class="formulario__input" id="apellido" name="apellido" placeholder="Apellido Ponente" value="<?=$ponente->apellido ?? '';?>">
     </div>
 
     <div class="formulario__campo">
         <label for="ciudad" class="formulario__label">Ciudad:</label>
-        <input type="text" class="formulario__input" id="ciudad" name="ciudad" placeholder="Ciudad Ponente" value="<?= $ponente->ciudad ?? '' ?>">
+        <input type="text" class="formulario__input" id="ciudad" name="ciudad" placeholder="Ciudad Ponente" value="<?=$ponente->ciudad ?? '';?>">
     </div>
 
     <div class="formulario__campo">
         <label for="pais" class="formulario__label">Pais:</label>
-        <input type="text" class="formulario__input" id="pais" name="pais" placeholder="Pais Ponente" value="<?= $ponente->pais ?? '' ?>">
+        <input type="text" class="formulario__input" id="pais" name="pais" placeholder="Pais Ponente" value="<?=$ponente->pais ?? '';?>">
     </div>
 
     <div class="formulario__campo">
@@ -26,18 +26,18 @@
         <input type="file" class="formulario__input formulario__input--file" id="imagen" name="imagen">
     </div>
 
-    <?php if (isset($ponente->imagen_actual)) { ?>
+    <?php if (isset($ponente->imagen_actual)) {?>
         <p class="formulario__texto">Imagen Actual:</p>
         <div class="formulario__imagen">
             <picture>
 
-                <source srcset="<?= s($_ENV['HOST'] . '/img/speakers/' . urlencode($ponente->imagen) . '.webp') ?>" type="image/webp">
-                <source srcset="<?= s($_ENV['HOST'] . '/img/speakers/' . urlencode($ponente->imagen) . '.png') ?>" type="image/png">
+                <source srcset="<?=s($_ENV['HOST'] . '/img/speakers/' . urlencode($ponente->imagen) . '.webp');?>" type="image/webp">
+                <source srcset="<?=s($_ENV['HOST'] . '/img/speakers/' . urlencode($ponente->imagen) . '.png');?>" type="image/png">
 
-                <img src="<?= s($_ENV['HOST'] . '/img/speakers/' . urlencode($ponente->imagen) . '.png') ?>" alt="Imagen Ponente">
+                <img src="<?=s($_ENV['HOST'] . '/img/speakers/' . urlencode($ponente->imagen) . '.png');?>" alt="Imagen Ponente">
             </picture>
         </div>
-    <?php } ?>
+    <?php }?>
 </fieldset>
 
 <fieldset class="formulario__fieldset">
@@ -49,7 +49,7 @@
     </div>
 
     <div id="tags" class="formulario__listado"></div>
-    <input type="hidden" name="tags" value="<?= $ponente->tags ?? '' ?>">
+    <input type="hidden" name="tags" value="<?=$ponente->tags ?? '';?>">
 </fieldset>
 
 
@@ -61,7 +61,7 @@
             <div class="formulario__icono">
                 <i class="fa-brands fa-facebook"></i>
             </div>
-            <input type="text" class="formulario__input--sociales" name="redes[facebook]" placeholder="Facebook" value="<?= $redes->facebook ?? '' ?>">
+            <input type="text" class="formulario__input--sociales" name="redes[facebook]" placeholder="Facebook" value="<?=$redes->facebook ?? '';?>">
         </div>
     </div>
 
@@ -70,7 +70,7 @@
             <div class="formulario__icono">
                 <i class="fa-brands fa-twitter"></i>
             </div>
-            <input type="text" class="formulario__input--sociales" name="redes[xtwitter]" placeholder="𝕏" value="<?= $redes->xtwitter ?? '' ?>">
+            <input type="text" class="formulario__input--sociales" name="redes[xtwitter]" placeholder="𝕏" value="<?=$redes->xtwitter ?? '';?>">
         </div>
     </div>
 
@@ -79,7 +79,7 @@
             <div class="formulario__icono">
                 <i class="fa-brands fa-youtube"></i>
             </div>
-            <input type="text" class="formulario__input--sociales" name="redes[youtube]" placeholder="Youtube" value="<?= $redes->youtube ?? '' ?>">
+            <input type="text" class="formulario__input--sociales" name="redes[youtube]" placeholder="Youtube" value="<?=$redes->youtube ?? '';?>">
         </div>
     </div>
 
@@ -88,7 +88,7 @@
             <div class="formulario__icono">
                 <i class="fa-brands fa-instagram"></i>
             </div>
-            <input type="text" class="formulario__input--sociales" name="redes[instagram]" placeholder="Instagram" value="<?= $redes->instagram ?? '' ?>">
+            <input type="text" class="formulario__input--sociales" name="redes[instagram]" placeholder="Instagram" value="<?=$redes->instagram ?? '';?>">
         </div>
     </div>
 
@@ -97,7 +97,7 @@
             <div class="formulario__icono">
                 <i class="fa-brands fa-tiktok"></i>
             </div>
-            <input type="text" class="formulario__input--sociales" name="redes[tiktok]" placeholder="TikTok" value="<?= $redes->tiktok ?? '' ?>">
+            <input type="text" class="formulario__input--sociales" name="redes[tiktok]" placeholder="TikTok" value="<?=$redes->tiktok ?? '';?>">
         </div>
     </div>
 
@@ -106,7 +106,7 @@
             <div class="formulario__icono">
                 <i class="fa-brands fa-github"></i>
             </div>
-            <input type="text" class="formulario__input--sociales" name="redes[github]" placeholder="Github" value="<?= $redes->github ?? '' ?>">
+            <input type="text" class="formulario__input--sociales" name="redes[github]" placeholder="Github" value="<?=$redes->github ?? '';?>">
         </div>
     </div>
 </fieldset>

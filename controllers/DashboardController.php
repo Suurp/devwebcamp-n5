@@ -4,15 +4,13 @@ namespace Controllers;
 
 use MVC\Router;
 
-class DashboardController
-{
+class DashboardController {
 
-    public static function index(Router $router)
-    {
+    public static function index(Router $router) {
         is_admin();
 
         $router->render('/admin/dashboard/index', [
-            'titulo' => 'Panel de Administración'
+            'titulo' => 'Panel de Administración',
         ]);
     }
 }

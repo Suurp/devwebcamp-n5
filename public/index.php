@@ -4,16 +4,15 @@ require_once __DIR__ . '/../includes/app.php';
 
 use Controllers\APIEventos;
 use Controllers\APIPonentes;
-use MVC\Router;
 use Controllers\AuthController;
 use Controllers\DashboardController;
 use Controllers\EventosController;
 use Controllers\PonentesController;
 use Controllers\RegalosController;
 use Controllers\RegistradosController;
+use MVC\Router;
 
 $router = new Router();
-
 
 // Login
 $router->get('/login', [AuthController::class, 'login']);
