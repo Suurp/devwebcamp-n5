@@ -13,7 +13,7 @@ use MVC\Router;
 class EventosController {
 
     public static function index(Router $router) {
-        is_admin();
+        isAdmin();
 
         $pagina_actual = $_GET['page'];
         $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
@@ -44,7 +44,7 @@ class EventosController {
     }
 
     public static function crear(Router $router) {
-        is_admin();
+        isAdmin();
         $alertas = [];
 
         $categorias = Categoria::all('ASC');
@@ -53,7 +53,7 @@ class EventosController {
         $evento     = new Evento;
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
-            is_admin();
+            isAdmin();
             $evento->sincronizar($_POST);
 
             $alertas = $evento->validar();
@@ -78,7 +78,7 @@ class EventosController {
     }
 
     public static function editar(Router $router) {
-        is_admin();
+        isAdmin();
         $alertas = [];
 
         $id = $_GET['id'];
@@ -101,7 +101,7 @@ class EventosController {
         }
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
-            is_admin();
+            isAdmin();
             $evento->sincronizar($_POST);
 
             $alertas = $evento->validar();
@@ -126,10 +126,10 @@ class EventosController {
     }
 
     public static function eliminar() {
-        is_admin();
+        isAdmin();
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
-            is_admin();
+            isAdmin();
             $id     = $_POST['id'];
             $evento = Evento::find($id);
 

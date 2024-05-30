@@ -10,7 +10,7 @@ use MVC\Router;
 
 class PonentesController {
     public static function index(Router $router) {
-        is_admin();
+        isAdmin();
 
         $pagina_actual = $_GET['page'];
         $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
@@ -40,13 +40,13 @@ class PonentesController {
 
     public static function crear(Router $router) {
 
-        is_admin();
+        isAdmin();
 
         $alertas = [];
         $ponente = new Ponente;
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            is_admin();
+            isAdmin();
 
             // Leer imagen
             if (!empty($_FILES['imagen']['tmp_name'])) {
@@ -100,7 +100,7 @@ class PonentesController {
 
     public static function editar(Router $router) {
 
-        is_admin();
+        isAdmin();
 
         $alertas = [];
         // Validar ID
@@ -120,7 +120,7 @@ class PonentesController {
         $ponente->imagen_actual = $ponente->imagen;
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
-            is_admin();
+            isAdmin();
             if (!empty($_FILES['imagen']['tmp_name'])) {
 
                 $carpeta_imagenes = '../public/img/speakers';
@@ -172,10 +172,10 @@ class PonentesController {
     }
 
     public static function eliminar() {
-        is_admin();
+        isAdmin();
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
-            is_admin();
+            isAdmin();
             $id      = $_POST['id'];
             $ponente = Ponente::find($id);
 

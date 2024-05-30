@@ -72,7 +72,7 @@ class AuthController {
 
             $usuario->sincronizar($_POST);
 
-            $alertas = $usuario->validar_cuenta();
+            $alertas = $usuario->validarCuenta();
 
             if (empty($alertas)) {
                 $existeUsuario = Usuario::where('email', $usuario->email);
