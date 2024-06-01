@@ -13,7 +13,10 @@ use MVC\Router;
 class EventosController {
 
     public static function index(Router $router) {
-        isAdmin();
+        if (!isAdmin()) {
+            header('Location: /login');
+            exit();
+        }
 
         $pagina_actual = $_GET['page'];
         $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
@@ -44,7 +47,10 @@ class EventosController {
     }
 
     public static function crear(Router $router) {
-        isAdmin();
+        if (!isAdmin()) {
+            header('Location: /login');
+            exit();
+        }
         $alertas = [];
 
         $categorias = Categoria::all('ASC');
@@ -53,7 +59,10 @@ class EventosController {
         $evento     = new Evento;
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
-            isAdmin();
+            if (!isAdmin()) {
+                header('Location: /login');
+                exit();
+            }
             $evento->sincronizar($_POST);
 
             $alertas = $evento->validar();
@@ -78,7 +87,10 @@ class EventosController {
     }
 
     public static function editar(Router $router) {
-        isAdmin();
+        if (!isAdmin()) {
+            header('Location: /login');
+            exit();
+        }
         $alertas = [];
 
         $id = $_GET['id'];
@@ -101,7 +113,10 @@ class EventosController {
         }
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
-            isAdmin();
+            if (!isAdmin()) {
+                header('Location: /login');
+                exit();
+            }
             $evento->sincronizar($_POST);
 
             $alertas = $evento->validar();
@@ -126,10 +141,16 @@ class EventosController {
     }
 
     public static function eliminar() {
-        isAdmin();
+        if (!isAdmin()) {
+            header('Location: /login');
+            exit();
+        }
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
-            isAdmin();
+            if (!isAdmin()) {
+                header('Location: /login');
+                exit();
+            }
             $id     = $_POST['id'];
             $evento = Evento::find($id);
 

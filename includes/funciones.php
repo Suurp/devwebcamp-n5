@@ -6,6 +6,7 @@ function debuguear($variable): string {
     echo "</pre>";
     exit;
 }
+
 function s($html): string {
     $s = htmlspecialchars($html);
     return $s;
@@ -24,7 +25,7 @@ function paginaActual(string $path): bool {
     return str_contains($currentPath, $path);
 }
 
-function isAuth(): void {
+function isAuth() {
     // Iniciar la sesión si aún no ha sido iniciada
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
@@ -39,13 +40,15 @@ function isAuth(): void {
     }
 
     // Verificar si el usuario está autenticado
-    if (empty($_SESSION)) {
-        header('Location: /');
-        exit();
+    if (empty($_SESSION['nombre'])) {
+        return false;
+    } else {
+        return true;
     }
+
 }
 
-function isAdmin(): void {
+function isAdmin() {
     // Iniciar la sesión si aún no ha sido iniciada
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
@@ -61,7 +64,8 @@ function isAdmin(): void {
 
     // Verificar si el usuario está autenticado
     if (empty($_SESSION['admin'])) {
-        header('Location: /');
-        exit();
+        return false;
+    } else {
+        return true;
     }
 }

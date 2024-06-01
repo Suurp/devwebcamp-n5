@@ -7,13 +7,20 @@ use Model\Ponente;
 class APIPonentes {
 
     public static function index() {
-        isAdmin();
+        if (!isAdmin()) {
+            header('Location: /login');
+            exit();
+        }
+
         $ponentes = Ponente::all();
         echo json_encode($ponentes);
     }
 
     public static function ponente() {
-        isAdmin();
+        if (!isAdmin()) {
+            header('Location: /login');
+            exit();
+        }
         $id = $_GET['id'];
         $id = filter_var($id, FILTER_VALIDATE_INT);
 

@@ -10,7 +10,10 @@ use MVC\Router;
 
 class PonentesController {
     public static function index(Router $router) {
-        isAdmin();
+        if (!isAdmin()) {
+            header('Location: /login');
+            exit();
+        }
 
         $pagina_actual = $_GET['page'];
         $pagina_actual = filter_var($pagina_actual, FILTER_VALIDATE_INT);
@@ -40,13 +43,19 @@ class PonentesController {
 
     public static function crear(Router $router) {
 
-        isAdmin();
+        if (!isAdmin()) {
+            header('Location: /login');
+            exit();
+        }
 
         $alertas = [];
         $ponente = new Ponente;
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            isAdmin();
+            if (!isAdmin()) {
+                header('Location: /login');
+                exit();
+            }
 
             // Leer imagen
             if (!empty($_FILES['imagen']['tmp_name'])) {
@@ -100,7 +109,10 @@ class PonentesController {
 
     public static function editar(Router $router) {
 
-        isAdmin();
+        if (!isAdmin()) {
+            header('Location: /login');
+            exit();
+        }
 
         $alertas = [];
         // Validar ID
@@ -120,7 +132,10 @@ class PonentesController {
         $ponente->imagen_actual = $ponente->imagen;
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
-            isAdmin();
+            if (!isAdmin()) {
+                header('Location: /login');
+                exit();
+            }
             if (!empty($_FILES['imagen']['tmp_name'])) {
 
                 $carpeta_imagenes = '../public/img/speakers';
@@ -172,10 +187,16 @@ class PonentesController {
     }
 
     public static function eliminar() {
-        isAdmin();
+        if (!isAdmin()) {
+            header('Location: /login');
+            exit();
+        }
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
-            isAdmin();
+            if (!isAdmin()) {
+                header('Location: /login');
+                exit();
+            }
             $id      = $_POST['id'];
             $ponente = Ponente::find($id);
 

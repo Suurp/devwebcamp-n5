@@ -33,6 +33,14 @@
 		@include m.enlace;
 	}
 
+	&__form {
+		display: flex;
+	}
+
+	&__submit--logout {
+		@extend .header__enlace;
+	}
+
 	&__contenido {
 		padding-top: 10rem;
 
