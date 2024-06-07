@@ -19,7 +19,7 @@ function paginaActual(string $path): bool {
     }
 
     // Usar $_SERVER['REQUEST_URI'] para mayor compatibilidad
-    $currentPath = $_SERVER['REQUEST_URI'] ?? '';
+    $currentPath = $_SERVER['REQUEST_URI'] ?? '/';
 
     // Verificar si $path está contenido en la URI actual
     return str_contains($currentPath, $path);
