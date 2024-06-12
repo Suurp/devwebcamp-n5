@@ -78,22 +78,21 @@ function salAnimation(): void {
         'slide-left',
         'slide-righ',
         'zoom-in',
-        'zoom-out',
     ];
 
     $eases = [
-        'easeOutCubic',
-        'easeOutQuint',
-        'easeOutBack',
-        'easeOutExpo',
+        // 'easeOutCubic',
+        // 'easeOutQuint',
+        // 'easeOutBack',
+        // 'easeOutExpo',
         'easeOutCirc',
-        'easeOutElastic',
+        'easeInOutSine',
     ];
 
     $efecto = array_rand($efectos, 1);
     $ease   = array_rand($eases, 1);
 
     echo ' data-sal=' . $efectos[$efecto] . ' ';
-    echo ' data-sal-delay="100" ';
+    echo ' data-sal-delay="300" ';
     echo ' data-sal-easing=' . $eases[$ease] . ' ';
 }

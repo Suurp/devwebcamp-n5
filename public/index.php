@@ -11,6 +11,7 @@ use Controllers\PaginasController;
 use Controllers\PonentesController;
 use Controllers\RegalosController;
 use Controllers\RegistradosController;
+use Controllers\RegistroController;
 use MVC\Router;
 
 $router = new Router();
@@ -54,12 +55,18 @@ $router->post('/admin/eventos/editar', [EventosController::class, 'editar']);
 $router->post('/admin/eventos/eliminar', [EventosController::class, 'eliminar']);
 
 $router->get('/admin/registrados', [RegistradosController::class, 'index']);
-
 $router->get('/admin/regalos', [RegalosController::class, 'index']);
 
 $router->get('/api/eventos-horario', [APIEventos::class, 'index']);
 $router->get('/api/ponentes', [APIPonentes::class, 'index']);
 $router->get('/api/ponente', [APIPonentes::class, 'ponente']);
+
+// Registro de usuarios
+$router->get('/finalizar-registro', [RegistroController::class, 'crear']);
+$router->post('/finalizar-registro/gratis', [RegistroController::class, 'gratis']);
+
+// Boleto virutal
+$router->get('/boleto', [RegistroController::class, 'boleto']);
 
 // Area Publica
 $router->get('/', [PaginasController::class, 'index']);

@@ -26,7 +26,9 @@ include_once __DIR__ . '/templates/footer.php';
     <script src="https://unpkg.com/sal.js/dist/sal.js"></script>
     <script>
         // Inicializa Sal.js
-        sal();
+        sal({
+            threshold: 0.3,
+        });
     </script>
 
     <script src="/build/js/main.min.js" defer></script>
