@@ -64,6 +64,8 @@ $router->get('/api/ponente', [APIPonentes::class, 'ponente']);
 // Registro de usuarios
 $router->get('/finalizar-registro', [RegistroController::class, 'crear']);
 $router->post('/finalizar-registro/gratis', [RegistroController::class, 'gratis']);
+$router->post('/finalizar-registro/pagar', [RegistroController::class, 'pagar']);
+$router->get('/finalizar-registro/conferencias', [RegistroController::class, 'conferencias']);
 
 // Boleto virutal
 $router->get('/boleto', [RegistroController::class, 'boleto']);
