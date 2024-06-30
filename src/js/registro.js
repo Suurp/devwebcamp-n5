@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 	const resumen = document.querySelector("#registro-resumen");
 
 	if (resumen) {
-		const submitFormulario = (e) => {
+		const submitFormulario = async (e) => {
 			e.preventDefault();
 
 			// Obtener el regalo
@@ -25,7 +25,32 @@ import Swal from "sweetalert2";
 				return;
 			}
 
-			console.log("Registrando...");
+			// Objeto de formdata
+			const datos = new FormData();
+			datos.append("eventos", eventosId);
+			datos.append("regalo_id", regaloId);
+
+			const url = "/finalizar-registro/conferencias";
+			const respuesta = await fetch(url, {
+				method: "POST",
+				body: datos,
+			});
+			const resultado = await respuesta.json();
+
+			if (resultado.resultado) {
+				Swal.fire(
+					"Registro Exitoso",
+					"Tus conferencias se han almacenado y tu registro fue exito, te esperamos en DevWebCamp",
+					"success"
+				).then(() => (location.href = `/boleto?id=${resultado.token}`));
+			} else {
+				Swal.fire({
+					title: "Error",
+					text: "Hubo un error",
+					icon: "error",
+					confirmButtonText: "OK",
+				}).then(() => location.reload());
+			}
 		};
 
 		const formularioRegistro = document.querySelector("#registro");
@@ -77,6 +102,12 @@ import Swal from "sweetalert2";
 					const eventoDOM = crearEventoDOM(evento);
 					resumen.appendChild(eventoDOM);
 				});
+			} else {
+				const noRegistro = document.createElement("P");
+				noRegistro.textContent =
+					"No hay eventos, añade hasta 5 del lado izquierdo";
+				noRegistro.classList.add("registro__texto");
+				resumen.appendChild(noRegistro);
 			}
 		};
 
@@ -114,5 +145,7 @@ import Swal from "sweetalert2";
 				eliminarEvento(id);
 			}
 		});
+
+		mostrarEventos();
 	}
 })();

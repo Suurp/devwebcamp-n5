@@ -13,7 +13,7 @@
 </head>
 
 <body class="dashboard">
-    <?php
+<?php
 include_once __DIR__ . '/templates/admin-header.php';
 ?>
     <div class="dashboard__grid">

@@ -15,7 +15,7 @@
     // Función para guardar la etiqueta cuando se presiona la coma
     const guardarTag = (e) => {
         // Verifica si la tecla presionada es la coma y si el valor del input no está vacío
-        if (e.key === ',' && e.target.value.trim() !== "") {
+        if (e.key === "," && e.target.value.trim() !== "") {
             e.preventDefault(); // Previene el comportamiento por defecto de la tecla
 
             const newTag = e.target.value.trim();
@@ -25,12 +25,12 @@
                 // Agrega la etiqueta al array de etiquetas
                 tags = [...tags, newTag];
                 // Limpia el valor del input
-                e.target.value = '';
+                e.target.value = "";
                 // Muestra las etiquetas actualizadas
                 mostrarTags();
             } else {
                 // Opcional: informar al usuario que la etiqueta ya existe
-                e.target.value = '';
+                e.target.value = "";
             }
         }
     };
@@ -40,9 +40,9 @@
         tagsDiv.textContent = ""; // Limpia el contenido del contenedor
 
         // Crea y añade cada etiqueta al contenedor
-        tags.forEach(tag => {
-            const etiqueta = document.createElement('LI'); // Crea un elemento de lista
-            etiqueta.classList.add('formulario__tag'); // Añade una clase CSS
+        tags.forEach((tag) => {
+            const etiqueta = document.createElement("LI"); // Crea un elemento de lista
+            etiqueta.classList.add("formulario__tag"); // Añade una clase CSS
             etiqueta.textContent = tag; // Establece el texto de la etiqueta
             etiqueta.ondblclick = eliminarTag; // Asigna el evento de doble clic para eliminar la etiqueta
             etiqueta.ontouchend = eliminarTag; // Asigna el evento de finalización de toque para eliminar la etiqueta en móviles
@@ -55,20 +55,20 @@
 
     // Función para actualizar el valor del input oculto
     const actualizarInputHidden = () => {
-        tagsInputHidden.value = tags.join(','); // Convierte el array de etiquetas en una cadena
+        tagsInputHidden.value = tags.join(","); // Convierte el array de etiquetas en una cadena
     };
 
     // Función para eliminar una etiqueta al hacer doble clic o al finalizar el toque en móviles
     const eliminarTag = (e) => {
         const tagToRemove = e.target.textContent; // Obtiene el texto de la etiqueta a eliminar
         // Filtra el array de etiquetas para eliminar la etiqueta seleccionada
-        tags = tags.filter(tag => tag !== tagToRemove);
+        tags = tags.filter((tag) => tag !== tagToRemove);
         // Muestra las etiquetas actualizadas
         mostrarTags();
     };
 
     //Recuperar tags
-    if(tagsInputHidden.value !== "") {
+    if (tagsInputHidden.value !== "") {
         tags = tagsInputHidden.value.split(",");
         mostrarTags();
     }

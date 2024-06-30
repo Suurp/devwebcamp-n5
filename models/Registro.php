@@ -4,7 +4,7 @@ namespace Model;
 
 class Registro extends ActiveRecord {
     protected static $tabla      = 'registros';
-    protected static $columnasDB = ['id', 'paquete_id', 'pago_id', 'token', 'usuario_id' . 'regalo_id'];
+    protected static $columnasDB = ['id', 'paquete_id', 'pago_id', 'token', 'usuario_id', 'regalo_id'];
 
     public $id;
     public $paquete_id;
