@@ -158,6 +158,13 @@ class ActiveRecord {
         return $resultado;
     }
 
+    // Retornar por orden y por un limite
+    public static function ordenarLimite($columna, $orden, $limite) {
+        $query     = "SELECT * FROM " . static::$tabla . " ORDER BY $columna $orden LIMIT $limite";
+        $resultado = self::consultarSQL($query);
+        return $resultado;
+    }
+
     // Busqueda Where con Multiples Opciones
     public static function whereArray($array = []) {
         $query = "SELECT * FROM " . static::$tabla . " WHERE ";

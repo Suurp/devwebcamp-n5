@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Model\Evento;
 use Model\Registro;
 use Model\Usuario;
 use MVC\Router;
@@ -26,10 +27,16 @@ class DashboardController {
 
         $ingresos = ($virtuales * 46.41) + ($presenciales * 189.54);
 
+        // Obtener eventos con más y menos lugares disponibles
+        $menosDisponibles = Evento::ordenarLimite('disponibles', 'ASC', '5');
+        $masDisponibles   = Evento::ordenarLimite('disponibles', 'DESC', '5');
+
         $router->render('/admin/dashboard/index', [
-            'titulo'    => 'Panel de Administración',
-            'registros' => $registros,
-            'ingresos'  => $ingresos,
+            'titulo'           => 'Panel de Administración',
+            'registros'        => $registros,
+            'ingresos'         => $ingresos,
+            'menosDisponibles' => $menosDisponibles,
+            'masDisponibles'   => $masDisponibles,
         ]);
     }
 }
