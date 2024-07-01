@@ -4,3 +4,4 @@ import "./tags.js";
 import "./slider.js";
 import "./map.js";
 import "./registro.js";
+import "./regalos.js";

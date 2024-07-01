@@ -4,6 +4,7 @@ require_once __DIR__ . '/../includes/app.php';
 
 use Controllers\APIEventos;
 use Controllers\APIPonentes;
+use Controllers\APIRegalos;
 use Controllers\AuthController;
 use Controllers\DashboardController;
 use Controllers\EventosController;
@@ -60,6 +61,7 @@ $router->get('/admin/regalos', [RegalosController::class, 'index']);
 $router->get('/api/eventos-horario', [APIEventos::class, 'index']);
 $router->get('/api/ponentes', [APIPonentes::class, 'index']);
 $router->get('/api/ponente', [APIPonentes::class, 'ponente']);
+$router->get('/api/regalos', [APIRegalos::class, 'index']);
 
 // Registro de usuarios
 $router->get('/finalizar-registro', [RegistroController::class, 'crear']);
